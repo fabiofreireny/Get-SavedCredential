@@ -30,10 +30,10 @@ function Get-SavedCredentials {
     
     If ((Test-Path $filePath) -and (-not $reset)) {
         $data = get-content $filePath | ConvertFrom-Json
-        Write-Host "Retrieving credentials from [$filePath]"
+        Write-Host "Retrieving credential from [$filePath]"
         $credential = New-Object System.Management.Automation.PsCredential($data.Username,($data.Password | ConvertTo-SecureString))
     } Else {
-        Write-Host "Enter credentials, saving encrypted to [$filePath]"
+        Write-Host "Enter credential, saving encrypted to [$filePath]"
         $credential = Get-Credential
         $Pass = $credential.Password | ConvertFrom-SecureString
         $Username = $credential.UserName
@@ -45,6 +45,4 @@ function Get-SavedCredentials {
     }
     return $credential
 }
-
-#Get-SavedCredentials ($HOME + "\" + (split-path $MyInvocation.MyCommand.Path -Leaf) + "-credential.json") #-reset
 
