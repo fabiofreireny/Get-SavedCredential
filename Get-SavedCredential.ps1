@@ -17,7 +17,7 @@ function Get-SavedCredentials {
      .OUTPUTS
     PSCredential
     .LINK
-    
+    https://github.com/fabiofreireny/Get-SavedCredential
     .NOTES
     Author: Fabio Freire (@fabiofreireny)
      #>
