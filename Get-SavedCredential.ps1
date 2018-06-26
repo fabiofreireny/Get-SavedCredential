@@ -30,14 +30,22 @@ function Get-SavedCredentials {
     
     If ((Test-Path $filePath) -and (-not $reset)) {
         $data = get-content $filePath | ConvertFrom-Json
-        Write-Host "Retrieving credential from [$filePath]"
-        $credential = New-Object System.Management.Automation.PsCredential($data.Username,($data.Password | ConvertTo-SecureString))
+        Write-Host "Retrieving credentials from [$filePath]"
+        if ($data.password) {
+            $credential = New-Object System.Management.Automation.PsCredential($data.Username,($data.Password | ConvertTo-SecureString))
+        } else {
+            #Blank password (no comments)
+            $credential = New-Object System.Management.Automation.PSCredential ($data.username, (new-object System.Security.SecureString))
+        }
     } Else {
-        Write-Host "Enter credential, saving encrypted to [$filePath]"
+        Write-Host "Enter credentials, saving encrypted to [$filePath]" -ForegroundColor DarkBlue -BackgroundColor Yellow
         $credential = Get-Credential
-        $Pass = $credential.Password | ConvertFrom-SecureString
+        if ($credential.Password.length -ne 0) {
+            $Pass = $credential.Password | ConvertFrom-SecureString 
+        } else {
+            $pass = $null
+        }
         $Username = $credential.UserName
-        
         $Store = "" | Select-Object Username, Password
         $Store.Username = $Username
         $Store.Password = $Pass
