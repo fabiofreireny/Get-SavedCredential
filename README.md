@@ -8,3 +8,5 @@ EXAMPLE
 `PS C:\> Get-SavedCredentials -filePath credential.json`
 
 Retrieve credential from .\credential.json file. If file does not exist then prompt for credential and save it.
+
+Dot-source it first (i.e. ". .\Get-SavedCredential") to load it into memory, then use as needed
