@@ -9,4 +9,4 @@ EXAMPLE
 
 Retrieve credential from .\credential.json file. If file does not exist then prompt for credential and save it.
 
-Dot-source it first (i.e. ". .\Get-SavedCredential") to load it into memory, then use as needed
+Dot-source it first (i.e. ". .\Get-SavedCredential.ps1") to load it into memory, then use as needed
